@@ -1,0 +1,15 @@
+
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-background-color="custom">
+        <app-sidebar-cmp></app-sidebar-cmp>
+        <div class="sidebar-background" style="filter: grayscale(2);background-image: url(assets/img/merakilab/sidebar-03.png)"></div>
+    </div>
+    <div class="main-panel">
+        <app-navbar-cmp></app-navbar-cmp>
+        <router-outlet></router-outlet>
+        <!-- <div *ngIf="!isMap()">
+            <app-footer-cmp></app-footer-cmp>
+        </div> -->
+    </div>
+    <!-- <app-fixedplugin></app-fixedplugin> -->
+</div>

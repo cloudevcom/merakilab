@@ -1,0 +1,183 @@
+<div class="navigation-links xs-hidden">
+    <app-tagging position="start" text="Inicio" [routerLink]="[ '/home']"></app-tagging>
+    <app-tagging [routerLink]="[ '/testcase/all']" text="Testcases"></app-tagging>
+    <app-tagging position="end" text="{{action_name}} Testcase"></app-tagging>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- HEADER -->
+        <div class="row xs-hidden">
+            <div class="col-md-12">
+                <!-- <div class="card card-plain">
+                    <div class="card-header card-header-icon card-header-primary">
+                        <div class="card-icon global-background">
+                            <i class="material-icons">science</i>
+                        </div>
+                        <h4 class="card-title mt-0">{{action_name}} Testcase</h4>
+                        <p class="card-category"> Here you can {{action_name}} a testcase.</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!-- BODY -->
+        <div class="card">
+            <div class="card-body" style="height:  calc(100vh - 155px) !important;">
+                <form [formGroup]="formGroup" novalidate>
+                    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)"
+                        style="width: 100%">
+                        <!-- TAB 1 -->
+                        <mat-tab label="Add Test Case">
+                            <!-- ROW 1 -->
+                            <div class="row mt-4 ml-0 mr-0">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Test Case Title</mat-label>
+                                        <input formControlName="title" required name="estate.number" id="estate.number"
+                                            matInput>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field  appearance="fill">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select formControlName="status" required placeholder="" name="status"
+                                            id="status">
+                                            <mat-option *ngFor="let sta of status" [value]="sta.name">
+                                                {{sta.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- ROW 2 -->
+                            <div class="row ml-0 mr-0">
+                                <div class="col-md-6">
+                                    <mat-form-field  appearance="fill">
+                                        <mat-label>Module</mat-label>
+                                        <mat-select formControlName="module" required placeholder=""
+                                            name="estate.module" id="estate.module">
+                                            <mat-option *ngFor="let module of modules" [value]="module.name">
+                                                {{module.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- ROW 3 -->
+                            <div class="row ml-0 mr-0">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Description</mat-label>
+                                        <textarea formControlName="despcription" name="estate.description"
+                                            id="estate.description" matInput></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+                        <!-- TAB 2 -->
+                        <mat-tab label="Steps">
+                            <!-- ROW 1 -->
+                            <div class="row mb-1 mt-2 mr-2  text-right">
+                                <div class="col-md-12">
+                                    <div class="td-actions mr-3">
+                                        <button matTooltip="Add Step" matTooltipClass="example-tooltip" type="button"
+                                            mat-mini-fab class="btn btn-primary fab-bottom" (click)="addStep(null)">
+                                            <i style="top:0px" class="fas fa-plus fa-2x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ROW 2   style="height:  calc(100vh - 370px) !important; -->
+                            <div class="container-2 row ml-0 mr-0">
+                                <div class="col-md-12">
+                                    <div cdkDropList (cdkDropListDropped)="drop($event)">
+                                        <div formArrayName="steps"
+                                            *ngFor="let step of formGroup.get('steps')?.controls; let i = index"
+                                            class="example-item card lst-drag mt-2 mb-2" cdkDrag>
+                                            <ng-container [formGroupName]="i">
+                                                <div class="card-body lst">
+                                                    <div class="row ">
+                                                        <div class="col-md-1 pl-0">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="example-handle" cdkDragHandle>
+                                                                        <svg width="24px" fill="currentColor"
+                                                                            viewBox="0 0 24 24">
+                                                                            <path
+                                                                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                                                                            </path>
+                                                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row mt-1">
+                                                                        {{i+1}}</div>
+                                                                    <!-- <input  [value]="i+1" name="estate.number"  formControlName="step_number"> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <mat-form-field class="pb-0 drag-field"
+                                                                appearance="outline">
+                                                                <mat-label>Step Description</mat-label>
+                                                                <textarea required formControlName="step_description"
+                                                                    name="{{'estate.description'+i}}"
+                                                                    id="{{'estate.description'+i}}" matInput></textarea>
+
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <mat-form-field class="pb-0 drag-field"
+                                                                appearance="outline">
+                                                                <mat-label>Expected Result</mat-label>
+                                                                <textarea formControlName="expected_result"
+                                                                    name="estate.expected" id="estate.expected"
+                                                                    matInput></textarea>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <div class="td-actions text-right">
+                                                                <button *ngIf="i!==0" matTooltip="Delete"
+                                                                    matTooltipClass="example-tooltip"
+                                                                    (click)="removeStep(i)" mat-raised-button
+                                                                    type="button" class="btn btn-danger btn-link">
+                                                                    <i class="fas fa-trash fa-lg"></i>
+                                                                </button>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="float-button-content">
+        <button mat-mini-fab type="button" (click)="location.back()" class="btn btn-default fab-bottom"
+            matTooltip="Cancel" matTooltipClass="example-tooltip">
+            <i style="top:0px" class="fas fa-times fa-2x"></i>
+        </button>
+        <button mat-mini-fab type="button" (click)="save(true)" class="btn btn-primary fab-bottom"
+            matTooltip="Save & Continue" matTooltipClass="example-tooltip">
+            <i style="top:0px" class="fas fa-save fa-2x"></i>
+        </button>
+        <button mat-fab type="button" (click)="save(false)" class="btn btn-primary fab-bottom" matTooltip="Save"
+            matTooltipClass="example-tooltip">
+            <i style="top:0px" class="fas fa-check fa-2x"></i>
+        </button>
+
+    </div>
+</div>

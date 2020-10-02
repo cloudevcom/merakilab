@@ -1,0 +1,23 @@
+.login-container {
+    background-image: url('../../../../assets/img/login.jpg');
+    background-size: cover; 
+    background-position: top center;
+}
+
+.mat-input-wrapper{
+    width:400px !important;
+  }
+
+  mat-form-field  {
+    font-size: 13px !important;
+  } 
+
+  .mat-form-field-appearance-legacy .mat-form-field-label {
+      
+    font-size: 13px !important;
+  }
+
+
+ .card-header-primary {
+  background: linear-gradient(60deg, #34495e, #203844) !important;
+ } 

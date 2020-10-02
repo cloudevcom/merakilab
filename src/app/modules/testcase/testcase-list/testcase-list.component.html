@@ -1,0 +1,88 @@
+<div class="navigation-links xs-hidden">
+    <app-tagging position="start" text="Inicio" [routerLink]="[ '/home']"></app-tagging>
+    <app-tagging position="end" text="Testcases"></app-tagging>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- HEADER -->
+        <div class="row xs-hidden">
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header card-header-icon card-header-primary">
+                        <div class="card-icon global-background">
+                            <i class="material-icons">science</i>
+                        </div>
+                        <h4 class="card-title mt-0">Testcases</h4>
+                        <p class="card-category">Founds here the list all testcases registered in the system.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SEARCH -->
+        <div class="row">
+            <div class="col-md-8 text-left">
+            </div>
+            <div class="col-md-4">
+                <app-search-box [dataSource]="dataSource"></app-search-box>
+            </div>
+        </div>
+        <!-- LIST -->
+        <div class="row">
+            <div class="col-md-12">
+                <cdk-virtual-scroll-viewport itemSize="59" class="virtual-scroll">
+                    <div *cdkVirtualFor="let testcase of dataSource" class="example-item card lst">
+                        <div class="card-body lst  ">
+                            <div class="row text-left">
+                                <div class="col-md-1 mt-2">
+                                    <div class="row">
+                                        <span class="badge-primary badge">TC-{{testcase.code}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row"><label>Title</label></div>
+                                    <div class="row">{{testcase.title}}</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="row"><label>module</label></div>
+                                    <div class="row">{{testcase.module}}</div>
+                                </div>
+                                <div class="col-md-3 mt-2">
+                                    <div class="row">
+                                        <span class="badge-info badge">{{testcase.status}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 mt-1">
+                                    <div class="td-actions text-right">
+                                        <button matTooltip="Editar" matTooltipClass="example-tooltip"
+                                            [routerLink]="[ '/testcase/edit/' + testcase.id ]" mat-raised-button
+                                            type="button" class="btn btn-primary btn-link">
+                                            <i class="fas fa-pen fa-lg"></i>
+                                        </button>
+                                        <button matTooltip="Delete" matTooltipClass="example-tooltip"
+                                            (click)="delete(testcase.id)" mat-raised-button type="button"
+                                            class="btn btn-danger btn-link">
+                                            <i class="fas fa-trash fa-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mb-2 mt-2">
+                        <span style="color:#9c27b0" *ngIf="dataSource.loadText === 'Cargando...'"><i
+                                class="fas fa-spinner fa-pulse fa-2x"></i> </span>
+                        <span   *ngIf="dataSource.loadText !== 'Cargando...'">{{ dataSource.loadText }}</span>
+                    </div>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+    </div>
+
+    <div class="float-button-content">
+        <button mat-fab type="button" [routerLink]="[ '/testcase/new' ]" class=" btn btn-primary fab-bottom"
+            matTooltip="Nuevo Testcase" matTooltipClass="example-tooltip">
+            <i style="top:0px" class="fas fa-plus fa-2x"></i>
+        </button>
+    </div>
+</div>

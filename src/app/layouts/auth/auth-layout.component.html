@@ -1,0 +1,25 @@
+<div class="col-md-12">
+  <div class="row wrapper wrapper-full-page" style="background-color: white;">
+    <div class="col-lg-4">
+      <div class="container">
+        <div class="col-md-12 vertical-center text-center xs-border">
+          <div class="col-md-12 mb-3 pr-3">
+            <img style="width: 200px" alt="homepage" src="./../../../assets/img/merakilab/logo-horizontal.png">
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 xs-hidden"
+      style="filter: hue-rotate(69deg);  background-image: url('./../../../assets/img/merakilab/758501.jpg'); background-size: cover; background-position: top center;">
+    </div>
+  </div>
+</div>
+<div>
+  <re-captcha name="captcha"
+  #captchaRef
+  size="invisible"
+  (resolved)="$event && submit($event)"
+   siteKey="6Ldu0bMZAAAAAIsmaCNxaiWwWtNnN5bDCspjcVAw">
+  </re-captcha>
+</div>

@@ -1,0 +1,14 @@
+ <div class="input-group no-border btn-search">
+   <mat-form-field floatLabel="never">
+     <input [(ngModel)]="searchBox" (ngModelChange)="onChange($event)" id="search-box" matInput
+       (keyup.enter)="doFilter(inputSearch.value)" #inputSearch type="text" value="" placeholder="Buscar...">
+     <button (click)="clear()" [hidden]="!inputSearch.value" class="mr-3" type="button" mat-icon-button matSuffix>
+       <mat-icon>{{inputSearch.value ? 'clear' : ''}}</mat-icon>
+     </button>
+     <button (click)="doFilter(inputSearch.value)" matSuffix mat-raised-button type="button"
+       class="btn btn-primary btn-round btn-just-icon">
+       <i class="material-icons">search</i>
+       <div class="ripple-container"></div>
+     </button>
+   </mat-form-field>
+ </div>

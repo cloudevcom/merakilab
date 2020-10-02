@@ -1,0 +1,63 @@
+<div class="col-md-12">
+    <label class="mb-0">
+        <h4><b>Login in your account</b></h4>
+    </label>
+    <p class="text-primary">Essential Features For Software Testers</p>
+</div>
+<div class="col-md-12">
+    <form class="form" [formGroup]="formLogin" novalidate>
+        <div class="alert alert-error" *ngIf="invalidCredentialds">
+            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+            </button>
+            <span>
+                Email or password invalid. ¡try again!
+            </span>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" name="login.email" id="login.email" required matInput placeholder="">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error style="font-size: 13px"
+                *ngIf="formLogin.controls['email'].hasError('required') && formLogin.controls['email'].touched">
+                Please enter the email
+            </mat-error>
+            <mat-error style="font-size: 13px"
+                *ngIf="formLogin.controls['email'].hasError('pattern') && formLogin.controls['email'].touched">
+                Please enter a valid email address
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input [type]="hide ? 'password' : 'text'" required formControlName="password" name="login.password"
+                id="login.password" matInput placeholder="">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error style="font-size: 13px"
+                *ngIf="formLogin.controls['password'].hasError('required') && formLogin.controls['password'].touched">
+                Please enter the password
+            </mat-error>
+            <mat-error style="font-size: 13px"
+                *ngIf="formLogin.controls['password'].hasError('minlength') && formLogin.controls['password'].touched">
+                Your password must be at least 6 characters long
+            </mat-error>
+        </mat-form-field>
+
+        <button type="button" (keyup.enter)="login()" (click)="login()" mat-raised-button
+            class="btn btn-block btn-primary btn-lg" name="login.submit" id="login.submit">Iniciar sesión</button>
+        <!-- <button name="login.forgotPassword" id="login.forgotPassword" type="button"
+            [routerLink]="[ '/authentication/reinstatement/']" mat-raised-button
+            class="btn btn-link btn-primary btn-sm">¿Olvidaste tu contraseña?</button> -->
+        <hr>
+        <label class="mb-0">
+            <!-- <h4>¿No tienes cuenta? <a [routerLink]="[ '/authentication/register/']">Regístrate</a></h4> -->
+        </label>
+        <!-- <re-captcha name="captcha" #captchaRef="reCaptcha" size="invisible" (resolved)="$event && login($event)"
+            siteKey="6Ldu0bMZAAAAAIsmaCNxaiWwWtNnN5bDCspjcVAw">
+        </re-captcha> -->
+    </form>
+</div>
+<div>
+</div>

@@ -1,0 +1,375 @@
+@import url('./assets/css/css-utility.css');
+@import './global.scss';
+@import './functions.scss';
+
+/* You can add global styles to this file, and also import other style files */
+.transparent-modal .mat-dialog-container {
+    background: transparent;
+    box-shadow: none;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+    z-index: 9999 !important;
+}
+
+.btn-excel {
+    background-color: #388e3c !important;
+}
+
+
+.float-button-content {
+    top: auto;
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+    position: fixed !important;
+    z-index: 9999;
+
+    .fab-bottom {
+        margin-left: 10px;
+    }
+
+    .fab-bottom-sm {
+        margin-left: 10px;
+        //top: 6px;
+        height: 45px;
+        width: 45px;
+    }
+}
+
+.mat-fab .mat-button-wrapper {
+    padding: 10px 0 !important;
+}
+
+.global-background {
+    background: var(--backgroundColor) !important;
+    background-color: var(--backgroundColor) !important;
+}
+
+.global-color>a {
+    color: var(--backgroundColor) !important;
+}
+
+li.active.global-theme>a {
+    background: var(--backgroundColor) !important;
+    background-color: var(--backgroundColor) !important;
+    color: white !important;
+}
+
+
+
+.fab-bottom-right-child-fab-second {
+    top: auto;
+    right: 133px;
+    bottom: 20px;
+    left: auto;
+    position: fixed !important;
+    z-index: 9999;
+}
+
+
+.float-left {
+    float: left !important;
+}
+
+.card-cancel {
+    position: absolute !important;
+    top: 0px;
+    float: right;
+    right: -8px;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+
+.fas-stack {
+    position: fixed;
+    margin-left: -20px;
+    margin-top: 22px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.mat-option:hover {
+    background-color: #009688 !important;
+}
+
+.mat-option.mat-selected:not(.mat-option-multiple) {
+    background-color: #009688 !important;
+}
+
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #009688;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: #009688;
+    background-color: #009688;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgb(255, 37, 37, .26)
+}
+
+
+
+.line {
+    border: 1px dashed #009688;
+    width: 97%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+//  OfBAR
+.ofBar {
+    background: #2e2d2ccf;
+    width: auto;
+    height: 30px;
+    position: fixed;
+    top: 70px;
+    z-index: 999999999;
+    font-size: 14px;
+    color: #fff;
+    padding: 3px 2%;
+    font-weight: 400;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+
+.ofBar:hover {
+    background: #252423cf;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+
+.content-ofBar {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .ofBar {
+        text-align: center;
+        font-size: 10px;
+        height: 2%;
+        width: auto;
+        text-align: center;
+    }
+}
+
+// End OFBAR
+
+//Nav Bar 
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0px;
+    left: 260px !important;
+    z-index: 1030;
+}
+
+.card-editable:hover {
+    background: #f3f3f3;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.sidebar .nav span {
+    margin: 0;
+    line-height: 30px;
+    font-size: 14px;
+    position: relative;
+    height: auto;
+    white-space: nowrap;
+}
+
+
+// MAX-768px
+@media (max-width: 768px) {
+    .ofBar {
+        text-align: center;
+        font-size: 13px;
+        height: 4%;
+        width: auto;
+        text-align: center;
+    }
+
+    .fixed-top {
+        left: 0px !important;
+    }
+
+    .hidden-xs {
+        display: none !important;
+    }
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.custom-card-footer {
+    text-align: right;
+}
+
+.swal2-container {
+    z-index: 100002 !important;
+}
+
+.example-tooltip {
+    font-size: 14px !important;
+    background-color: #000000ad;;
+    color: white !important;
+}
+
+.virtual-scroll {
+    height: calc(100vh - 273px) !important;
+    width: 100%;
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 768px) {
+    .xs-hidden {
+       display: none !important;
+    }
+
+    .virtual-scroll {
+        height: calc(100vh - 128px) !important;
+        width: 100%;
+    }
+    
+    .xs-col{
+        width: 100% !important;
+
+    }
+    .main-panel .main-content{
+        padding: 1px 5px !important;
+        margin-top: 46px !important;
+    }   
+
+    .container-fluid, .container-xl, .container-lg, .container-md, .container-sm {
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: auto; 
+        margin-left: auto; 
+    }
+
+    .btn-search {
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-top: 29px;
+    }
+
+    .xs-border {
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+    }
+}
+
+/**** AuthLayout*************/
+
+.container {
+    position: relative;
+    height: 100%;
+  }
+  
+  .vertical-center {
+    margin: 0;
+    top: 350px;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+.wrapper {
+    background-color:whitesmoke;
+}
+
+.alert-error {
+    background-color: #fff2f3;
+    color: red;
+    font-size:13px;
+    padding: 3px 3px; 
+}
+
+.alert-error .close i {
+    color: red;
+    font-size: 11px;
+}
+
+.navigation-links {
+    padding-left:15px;
+    position: fixed;
+    padding-top: 80px;
+    z-index:1030 !important;
+}
+
+.btn-search {
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
+
+// CARD TYPE LIST
+
+.lst button{
+    padding: 0px 5px !important;
+}
+
+.lst{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.card .lst{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 35px;
+  
+}
+
+.lst label{
+    font-size: 13px;
+    margin-bottom:-3px
+}
+
+.card-plain {
+    margin-bottom: 10px !important;
+}
+.btn-excel {
+    background-color: #388e3c !important;
+}
+
+.img-info {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.cnt-list {
+    overflow-y: scroll;
+    height: 500px;
+    height: calc(100vh - 70px) !important;
+   }
+
+.drag-field .mat-form-field-wrapper{
+       padding-bottom:  0px !important;
+   }
