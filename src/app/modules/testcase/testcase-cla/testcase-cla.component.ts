@@ -123,7 +123,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   save(keep: boolean) {
     if (this.formGroup.valid) {
       if (this.testcase_id) {
-        this.testCaseAPI.update(this.formGroup.value, this.testcase_id)
+        this.testCaseAPI.update(this.testcase_id, this.formGroup.value, )
           .then(() => {
             keep ? this.selected.setValue(0) : this.router.navigate(['/testcase/all']);
             this.notifyService.notifySuccess("Testcase updated successfully.");
