@@ -5,6 +5,7 @@ import { Base } from '../../../shared/bases/base';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { NotifyService } from '../../services/notify.service';
+import { UserAPI } from '../../firestoreAPI/user.api';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class LoginComponent extends Base implements OnInit, AfterViewInit {
     private router: Router,
     private notifyService: NotifyService,
     public formBuilder: FormBuilder,
-    private afAuth: AngularFireAuth,) {
+    private afAuth: AngularFireAuth,
+    private userApi: UserAPI) {
     super();
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
@@ -68,13 +70,17 @@ export class LoginComponent extends Base implements OnInit, AfterViewInit {
 
   async login() {
     if (this.formLogin.valid) {
+      const storageData:  any = {};
       this.afAuth.signInWithEmailAndPassword(this.formLogin.value.email, this.formLogin.value.password)
-      .then((result) => {
-        console.log('result :>> ', result);
-        result.user.getIdToken().then(token =>{
-          localStorage.setItem("token", token);
-          this.router.navigate(['/home']);
-        })
+      .then((result) => {    
+         result.user.getIdToken().then((token)=>{
+          storageData.token = token;
+          this.userApi.getByEmail(result.user.email).subscribe((result)=>{
+            storageData.user = result[0]; 
+            localStorage.setItem("storageData", JSON.stringify(storageData));
+            this.router.navigate(['/home']);
+          });
+        });
       })
       .catch(error => {
           this.notifyService.notifyError(error);

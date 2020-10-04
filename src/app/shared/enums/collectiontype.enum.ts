@@ -1,4 +1,5 @@
 export enum CollectionType {
     Module = "Modules",
-    Testcase = "Testcases"
+    Testcase = "Testcases",
+    Account = "Account"
 }

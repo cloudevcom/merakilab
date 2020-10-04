@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit {
     public menuItems: any[];
     ps: any;
     public usuario: any = {};
+    storageData: any;
     constructor(public authService: AuthService, 
         private methodService: HttpService,
         private notifyService: NotifyService) {
@@ -49,6 +50,9 @@ export class SidebarComponent implements OnInit {
     }
 
     async ngOnInit() {
+
+        this.storageData = JSON.parse(localStorage.getItem('storageData'));
+
         this.menuItems = ROUTES.filter(menuItem => menuItem);
 
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

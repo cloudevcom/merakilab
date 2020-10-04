@@ -10,7 +10,8 @@ export class AuthService {
     private router: Router,) { }
   
   public signOut(){
-    this.afAuth.signOut();
+    localStorage.removeItem('storageData');
+    this.afAuth.signOut();    
     this.router.navigate(['/authentication/login']);
   }
   

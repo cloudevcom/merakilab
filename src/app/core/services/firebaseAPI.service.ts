@@ -18,18 +18,22 @@ export class FireStoreService {
 
     // GET ALL DOCUMENT FROM COLLECTION
     public getCollection(collection: CollectionType){
-         
-        return this.afs.collection(collection, ref => ref.orderBy('code').limit(20))
-        .snapshotChanges()
+        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(20))
+            .snapshotChanges()
             .pipe(
-                map( actions => actions
+                map(actions => actions
                     .filter(snap => snap.payload.doc.id != '--stats--')
                     .map(snap => {
-                     const data: any = snap.payload.doc.data();
-                     data.id = snap.payload.doc.id; 
-                     return data; 
-                }))
-           );
+                        const data: any = snap.payload.doc.data();
+                        data.id = snap.payload.doc.id;
+                        if (data.created_by_user) {
+                            data.created_by_user.get().then(res => {
+                                data.created_by_user = res.data();
+                            });
+                        }
+                        return data;
+                    }))
+            );
     }
     
     // CREATE DOCUMENT
