@@ -12,6 +12,9 @@ import { CollectionType } from 'src/app/shared/enums/collectiontype.enum';
 import { moveItemInFormArray } from 'src/app/shared/funtions/move-item-in-form-array';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Guid } from "guid-typescript";
+import { ModuleAPI } from 'src/app/core/firestoreAPI/module.api';
+import { TestCaseAPI } from 'src/app/core/firestoreAPI/testcase.api';
+
 
 @Component({
   selector: 'app-testcase-cla',
@@ -28,11 +31,12 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   selected = new FormControl(0);
 
   constructor(private route: ActivatedRoute,
-    public fs: FireStoreService,
+    private testCaseAPI: TestCaseAPI,
     private formBuilder: FormBuilder,
     private notifyService: NotifyService,
     private afs: AngularFirestore,
     private router: Router,
+    private moduleApi: ModuleAPI,
     public location: Location) {
     super();
     this.testcase_id = this.route.snapshot.params['testcase_id'];
@@ -55,6 +59,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   }
 
   ngOnInit(): void {
+    console.log('ddd :>> ');
     this.validations();
     this.getModules();
     if (this.testcase_id) {
@@ -66,13 +71,14 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   }
 
   getModules() {
-    this.fs.getCollection(CollectionType.Module).subscribe((result: any) => {
+    this.moduleApi.getModules().subscribe((result: any) => {
+      console.log('result :>> ', result);
       this.modules = result;
     });
   }
 
   getTestcase() {
-    this.fs.getDocument(CollectionType.Testcase, this.testcase_id)
+    this.testCaseAPI.getById(this.testcase_id)
       .subscribe((result: any) => {
         this.formGroup.patchValue(result.data());
         for (let step of result.data().steps) {
@@ -89,6 +95,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
       despcription: ['', Validators.nullValidator],
       module: ['', Validators.required],
       steps: this.formBuilder.array([]),
+
     });
     //Add only if is new
     if (!this.testcase_id)
@@ -116,7 +123,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   save(keep: boolean) {
     if (this.formGroup.valid) {
       if (this.testcase_id) {
-        this.fs.updateDocument(CollectionType.Testcase, this.formGroup.value, this.testcase_id)
+        this.testCaseAPI.update(this.formGroup.value, this.testcase_id)
           .then(() => {
             keep ? this.selected.setValue(0) : this.router.navigate(['/testcase/all']);
             this.notifyService.notifySuccess("Testcase updated successfully.");
@@ -132,19 +139,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   }
 
   create(keep: boolean) {
-    var statsRef = this.afs.collection(CollectionType.Testcase).doc('--stats--').ref;
-    const increment = firebase.firestore.FieldValue.increment(1);
-    this.afs.firestore.runTransaction((trans: any) => {
-      return trans.get(statsRef)
-        .then((statsDoc: any) => {
-          if (!statsDoc.exists)
-            trans.set(statsRef, { counter: 0 });
-          const tcDocRef = this.afs.collection(CollectionType.Testcase).doc(Guid.create().toString()).ref
-          this.formGroup.value.code = statsDoc.data() ? statsDoc.data().counter + 1 : 1;
-          trans.set(tcDocRef, this.formGroup.value);
-          trans.update(statsRef, { counter: increment });
-        });
-    }).then(() => {
+    this.testCaseAPI.create(this.formGroup.value).then(() => {
       if (keep) {
         this.selected.setValue(0)
         this.formGroup.reset();
@@ -157,11 +152,9 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
         this.notifyService.notifySuccess("Testcase created successfully.");
     }).catch((error) => {
       console.log('error :>> ', error);
+      this.notifyService.notifyError(error)
     });
   }
-
-
-
 
   public validateAllFormFieldsDrag(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {

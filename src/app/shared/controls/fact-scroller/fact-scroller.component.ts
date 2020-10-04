@@ -55,6 +55,7 @@ export class FactScrollerComponent extends DataSource<APIResponse> {
 
   private _fetchFactPage(): void {
       this.factService.getRandomFact(this.collection, this.page, this.filter).subscribe(res => {
+        console.log('res :>> ', res);
         this.cachedFacts = this.cachedFacts.concat(res);
         this.dataStream.next(this.cachedFacts);
       });  

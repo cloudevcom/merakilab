@@ -10,6 +10,8 @@ import { RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
 import { ApiService } from './services/api.service';
 import { FetchServiceService } from './services/fetch-service.service';
 import { FireStoreService } from './services/firebaseAPI.service';
+import { ModuleAPI } from './firestoreAPI/module.api';
+import { UserAPI } from './firestoreAPI/user.api';
 
 @NgModule({
   imports: [],
@@ -27,6 +29,8 @@ import { FireStoreService } from './services/firebaseAPI.service';
     FetchServiceService,
     FireStoreService,
     ApiService,
+    ModuleAPI,
+    UserAPI,
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'es'
