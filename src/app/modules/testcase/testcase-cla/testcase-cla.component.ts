@@ -151,7 +151,6 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
         this.router.navigate(['/testcase/all']);
         this.notifyService.notifySuccess("Testcase created successfully.");
     }).catch((error) => {
-      console.log('error :>> ', error);
       this.notifyService.notifyError(error)
     });
   }

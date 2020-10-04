@@ -26,9 +26,7 @@ export class FireStoreService {
                     .map(snap => {
                         const data: any = snap.payload.doc.data();
                         data.id = snap.payload.doc.id;
-                        console.log('data.created_by_user :>> ', data.created_by_user);
                         if (data.created_by_user) {
-                            console.log('data.created_by_user :>> ', data.created_by_user);
                             data.created_by_user.get().then(res => {
                                 data.created_by_user = res.data();
                             });
