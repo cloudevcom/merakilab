@@ -9,9 +9,13 @@ import { FactScrollerModule } from 'src/app/shared/controls/fact-scroller/fact-s
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatChipsModule } from '@angular/material/chips';
 import { SearchBoxModule } from 'src/app/shared/controls/search-box/search-box.module';
+import { BadgeStatusDirective } from 'src/app/core/directives/badge-status.directive';
 
 @NgModule({
-    declarations: [TestcaseListComponent],
+    declarations: [
+        TestcaseListComponent,
+        BadgeStatusDirective
+    ],
     imports: [ 
         CommonModule,
         RouterModule.forChild(TestcaseListRoute),

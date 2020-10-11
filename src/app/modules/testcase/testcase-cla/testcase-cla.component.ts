@@ -29,6 +29,7 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   status: any[] = STATUS;
   steps: FormArray;
   selected = new FormControl(0);
+  updatedBy: string;
 
   constructor(private route: ActivatedRoute,
     private testCaseAPI: TestCaseAPI,
@@ -80,8 +81,10 @@ export class TestcaseClaComponent extends Base implements OnInit, AfterViewInit 
   getTestcase() {
     this.testCaseAPI.getById(this.testcase_id)
       .subscribe((result: any) => {
-        this.formGroup.patchValue(result.data());
-        for (let step of result.data().steps) {
+        console.log('result.data() :>> ', result);
+        this.model = result;
+        this.formGroup.patchValue(result);
+        for (let step of result.steps) {
           this.addStep(step);
         }
 
