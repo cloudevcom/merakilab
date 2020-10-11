@@ -13,6 +13,7 @@ import { FireStoreService } from './services/firebaseAPI.service';
 import { ModuleAPI } from './firestoreAPI/module.api';
 import { UserAPI } from './firestoreAPI/user.api';
 
+
 @NgModule({
   imports: [],
   declarations: [],

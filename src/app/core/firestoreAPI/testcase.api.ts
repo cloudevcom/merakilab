@@ -21,9 +21,7 @@ export class TestCaseAPI {
                     .map(snap => {
                         const data: any = snap.payload.doc.data();
                         data.id = snap.payload.doc.id;
-                        console.log('data.created_by_user :>> ', data.created_by_user);
                         if (data.created_by_user) {
-                            console.log('data.created_by_user :>> ', data.created_by_user);
                             data.created_by_user.get().then(res => {
                                 data.created_by = res.data();
                             });
@@ -34,7 +32,29 @@ export class TestCaseAPI {
     }
 
     public getById(id: string) {
-        return this.afs.collection(CollectionType.Testcase).doc(id).get();
+        return this.afs.collection(CollectionType.Testcase).doc(id)
+        .valueChanges()
+        .pipe(
+            map(item =>{
+                const data: any = item;
+                if (data.created_by_user) {
+
+                    data.created_by_user.get().then(res => {
+                        data.created_by_user = res.data();
+                        data.created_by = `${ data.created_by_user.first_name}  ${data.created_by_user.last_name}`;
+                    });
+
+                    data.updated_by_user.get().then(res => {
+                        data.updated_by_user = res.data();
+                        data.updated_by = `${ data.updated_by_user.first_name}  ${data.updated_by_user.last_name}`;
+                    });
+
+                    data.created_date =  data.created_date.toDate();
+                    data.updated_date =  data.updated_date.toDate();
+                }
+                return data;
+            })
+        );
     }
 
     public delete(id: string) {
@@ -59,7 +79,7 @@ export class TestCaseAPI {
     }
 
     public create(data: any): Promise<any> {
-
+        data.created_date = new Date();
         var statsRef = this.afs.collection(CollectionType.Testcase).doc('--stats--').ref;
         const increment = firebase.firestore.FieldValue.increment(1);
         let promise = this.afs.firestore.runTransaction((trans: any) => {
@@ -69,7 +89,6 @@ export class TestCaseAPI {
                         trans.set(statsRef, { counter: 0 });
                     const tcDocRef = this.afs.collection(CollectionType.Testcase).doc(Guid.create().toString()).ref
                     data.code = statsDoc.data() ? statsDoc.data().counter + 1 : 1;
-                    console.log('firebase.auth().currentUser.uid :>> ', firebase.auth().currentUser.uid);
                     data.created_by_user = this.afs.doc(`/Account/${firebase.auth().currentUser.uid}`).ref;
                     trans.set(tcDocRef, data);
                     trans.update(statsRef, { counter: increment });
@@ -80,6 +99,8 @@ export class TestCaseAPI {
     }
 
     public update(id: string, data: any) {
+        data.updated_date = new Date();
+        data.updated_by_user = this.afs.doc(`/Account/${firebase.auth().currentUser.uid}`).ref;
         return this.afs.collection(CollectionType.Testcase).doc(id).update(data);
     }
 }

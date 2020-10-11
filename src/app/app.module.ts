@@ -143,7 +143,7 @@ export class MaterialModule { }
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    FullComponent
+    FullComponent,
   ],
   providers: [
   ],
