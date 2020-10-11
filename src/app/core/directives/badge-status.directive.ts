@@ -7,7 +7,8 @@ export class BadgeStatusDirective  implements OnInit {
 
   @Input('appBadgeStatus') status: string;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {
+  constructor(private renderer: Renderer2,
+     private el: ElementRef) {
 
   }
 

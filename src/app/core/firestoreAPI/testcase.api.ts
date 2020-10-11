@@ -33,28 +33,28 @@ export class TestCaseAPI {
 
     public getById(id: string) {
         return this.afs.collection(CollectionType.Testcase).doc(id)
-        .valueChanges()
-        .pipe(
-            map(item =>{
-                const data: any = item;
-                if (data.created_by_user) {
+            .valueChanges()
+            .pipe(
+                map(item => {
+                    const data: any = item;
+                    if (data.created_by_user)
+                        data.created_by_user.get().then(res => {
+                            data.created_by_user = res.data();
+                            data.created_by = `${data.created_by_user.first_name}  ${data.created_by_user.last_name}`;
+                        });
 
-                    data.created_by_user.get().then(res => {
-                        data.created_by_user = res.data();
-                        data.created_by = `${ data.created_by_user.first_name}  ${data.created_by_user.last_name}`;
-                    });
+                   if (data.updated_by_user)
+                        data.updated_by_user.get().then(res => {
+                            data.updated_by_user = res.data();
+                            data.updated_by = `${data.updated_by_user.first_name}  ${data.updated_by_user.last_name}`;
+                        });
 
-                    data.updated_by_user.get().then(res => {
-                        data.updated_by_user = res.data();
-                        data.updated_by = `${ data.updated_by_user.first_name}  ${data.updated_by_user.last_name}`;
-                    });
+                    data.created_date = data.created_date.toDate();
+                    data.updated_date = data.updated_date.toDate();
 
-                    data.created_date =  data.created_date.toDate();
-                    data.updated_date =  data.updated_date.toDate();
-                }
-                return data;
-            })
-        );
+                    return data;
+                })
+            );
     }
 
     public delete(id: string) {
