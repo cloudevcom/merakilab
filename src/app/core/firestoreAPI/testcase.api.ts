@@ -49,8 +49,10 @@ export class TestCaseAPI {
                             data.updated_by = `${data.updated_by_user.first_name}  ${data.updated_by_user.last_name}`;
                         });
 
-                    data.created_date = data.created_date.toDate();
-                    data.updated_date = data.updated_date.toDate();
+                    if(data.created_date)    
+                        data.created_date = data.created_date.toDate();
+                    if(data.updated_date) 
+                        data.updated_date = data.updated_date.toDate();
 
                     return data;
                 })
