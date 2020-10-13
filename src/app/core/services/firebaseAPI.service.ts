@@ -12,13 +12,13 @@ import { isNgTemplate } from '@angular/compiler';
 })
 export class FireStoreService {
 
-    constructor(private readonly afs: AngularFirestore){
+    constructor(private readonly afs: AngularFirestore) {
 
     }
 
     // GET ALL DOCUMENT FROM COLLECTION
-    public getCollection(collection: CollectionType){
-        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(20))
+    public getCollection(collection: CollectionType) {
+        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(100))
             .snapshotChanges()
             .pipe(
                 map(actions => actions
@@ -35,25 +35,25 @@ export class FireStoreService {
                     }))
             );
     }
-    
+
     // CREATE DOCUMENT
     public create(collection: CollectionType, model: any): Promise<any> {
         return this.afs.collection(collection).add(model);
     }
 
-     // READ A DOCUMENT
-     public getDocument(collection: CollectionType, id:string){
+    // READ A DOCUMENT
+    public getDocument(collection: CollectionType, id: string) {
         return this.afs.collection(collection).doc(id).get();
     }
 
     // UPDATE A DOCUMENT
-    public updateDocument(collection: CollectionType, model: any, id:string){
+    public updateDocument(collection: CollectionType, model: any, id: string) {
         return this.afs.collection(collection).doc(id).update(model);
     }
 
     // DELETE A DOCUMENT
-    public deleteDocument(collection: CollectionType, id:string){
+    public deleteDocument(collection: CollectionType, id: string) {
         return this.afs.collection(collection).doc(id).delete();
     }
-    
+
 }
