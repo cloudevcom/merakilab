@@ -13,7 +13,7 @@ export class TestCaseAPI {
     constructor(private readonly afs: AngularFirestore) { }
 
     public getAll() {
-        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(20))
+        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(100))
             .snapshotChanges()
             .pipe(
                 map(actions => actions

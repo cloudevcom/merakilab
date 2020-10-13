@@ -26,6 +26,9 @@ export class BadgeStatusDirective  implements OnInit {
       case 'In Progress':
         this.renderer.setAttribute(this.el.nativeElement, 'class', 'badge badge-warning');
         break;
+      default: 
+        this.renderer.setAttribute(this.el.nativeElement, 'class',  'badge badge-default');
+        break;
     }
   }
 
