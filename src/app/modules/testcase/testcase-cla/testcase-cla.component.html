@@ -55,8 +55,8 @@
                                         <mat-label>Module</mat-label>
                                         <mat-select formControlName="module" required placeholder=""
                                             name="estate.module" id="estate.module">
-                                            <mat-option *ngFor="let module of modules" [value]="module.name">
-                                                {{module.name}}
+                                            <mat-option  *ngFor="let module of modules" [value]="module.name"> 
+                                               {{module.name}}                     
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>

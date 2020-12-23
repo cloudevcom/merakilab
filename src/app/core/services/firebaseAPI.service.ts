@@ -16,9 +16,13 @@ export class FireStoreService {
 
     }
 
-    // GET ALL DOCUMENT FROM COLLECTION
+    // GET ALL DOCUMENT FROM COLLECTION .where('module','==','Habitantes')
     public getCollection(collection: CollectionType) {
-        return this.afs.collection(CollectionType.Testcase, ref => ref.orderBy('code').limit(100))
+        return this.afs.collection(CollectionType.Testcase, ref => ref
+            .orderBy('code')
+            .limit(100)
+            .where('module','==','Habitantes')
+            )
             .snapshotChanges()
             .pipe(
                 map(actions => actions
